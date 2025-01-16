@@ -31,27 +31,26 @@ header nav form{
     display: flex;
     justify-content: center;
 }
-
-form input[type="text"] {
-    flex-grow: 1;
+input[type="text"] {
+    flex-grow: 0.25;
     margin-right: 10px;
 }
 
-form input[type="text"],button[type="submit"] {
+ input[type="text"],button[type="submit"] {
    border: none;
    font-size: 18px;
    padding: 10px;
-   border-radius: 4px;
+   border-radius: 8px;
  }
 
- form button[type="submit"]{
-    background-color: #f44336;
-    color: #fff;
+ button[type="submit"]{
+    background-color: #d32c20;
+    color: #f7eeee;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
  }
 
- form button[type="submit"]:hover{
+  button[type="submit"]:hover, .recipe button:hover{
     background-color: #dd8282;
  }
 
@@ -101,9 +100,28 @@ form input[type="text"],button[type="submit"] {
     font-size: 20px;
     font-weight: 600;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
+    border: none;
     cursor: pointer;
+    margin: 18px auto;
+    background-color: #f44336;
+    color: #fff;
  } 
+ /* recipe details*/
+ .recipe-details{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    background-color: #694c2f;
+    border-radius: 12px;
+    width: 40%;
+    height: 60%;
+    font-size: 20px;
+
+ }
 
 /* responsive code*/
 @media screen and (max-width:600px) {

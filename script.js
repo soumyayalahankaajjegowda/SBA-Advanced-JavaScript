@@ -1,6 +1,8 @@
 const searchBox = document.querySelector('.searchBtn');
 const input = document.querySelector(".SearchBox")
 const recipecontainer = document.querySelector('.recipe-container');
+const recipeDetailsContent = document.querySelector('.recipe-details-content');
+const recipeCloseBtn = document.querySelector('.recipe-close-btn');
 console.log("hello",searchBox)
 
 //function to get recipes
@@ -26,11 +28,25 @@ if (response.meals) {
     const button = document.createElement('button');
     button.textContent = "view Recipe";
     recipeDiv.appendChild(button);
+
+//Adding EventListner to recipe button
+button.addEventListener('click', ()=>{
+    openRecipePopup(meal);
+})    
     recipecontainer.appendChild(recipeDiv);    
      });
 
 }
+const openRecipePopup = (meal) => {
+    recipeDetailsContent.textContent =`
+    <h2>${meal.strMeal}</h2>
+    `
+    recipeDetailsContent.parentElement.style.display = "block";
 }
+
+}
+
+
 searchBox.addEventListener('click' , ()=>{
  
     console.log("click")
