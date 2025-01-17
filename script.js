@@ -4,6 +4,7 @@ const recipecontainer = document.querySelector('.recipe-container');
 const recipeDetailsContent = document.querySelector('.recipe-details-content');
 const recipeCloseBtn = document.querySelector('.recipe-close-btn');
 console.log("hello",searchBox)
+const receipeForm = document.querySelector(".form")
 
 //function to get recipes
 const fetchRecipes = async (query) => {  //we accessed through query variable
@@ -12,8 +13,9 @@ const fetchRecipes = async (query) => {  //we accessed through query variable
     const response = await data.json();
     console.log(response)
    // console.log(response.meals[0]);
+
 if (response.meals) {
-    recipecontainer.innerHtml = ""; // clear previous results
+    recipecontainer.innerHtml = ""; 
      response.meals.forEach(meal => {
         const recipeDiv = document.createElement('div')
         recipeDiv.classList.add('recipe');
@@ -35,23 +37,54 @@ button.addEventListener('click', ()=>{
 })    
     recipecontainer.appendChild(recipeDiv);    
      });
+    }else{
+        recipecontainer.textContent = "No recipe found. please try another search."
+    }
+    //function to fetch ingredients and measurements.
+    const fetchIngredients = (meal) => {
+    //  console.log(meal);
 
-}
+    let ingredientsList = "";
+    for(let i=1; i<=20; i++){
+      const ingredient = meal[`strIngredient${i}`];
+      if(ingredient){
+        const measure = meal[`strMeasure${i}`];
+        ingredientsList += `<li>${measure} ${ingredient}</li>`
+      }
+      else {
+           break;
+      }
+    }
+    return ingredientsList;
+    }
+    
 const openRecipePopup = (meal) => {
-    recipeDetailsContent.textContent =`
-    <h2>${meal.strMeal}</h2>
+    recipeDetailsContent.innerHTML =`
+    <h2 class="recipeName">${meal.strMeal}</h2>
+    <h3>Ingredents:</h3>
+    <ul class="ingredientList">${fetchIngredients(meal)}</ul>  
+    <div class="recipeInstructions">
+    <h3>Instructions:</h3>
+    <p >${meal.strInstructions}</p>
+    </div>
     `
     recipeDetailsContent.parentElement.style.display = "block";
 }
 
 }
 
-
-searchBox.addEventListener('click' , ()=>{
- 
+recipeCloseBtn.addEventListener('click', ()=> { 
+    recipeDetailsContent.parentElement.style.display = "none";
+});
+receipeForm.addEventListener('submit' , (e)=>{
+    e.preventDefault()
     console.log("click")
     const searchInput = input.value.trim();// this will; give search box value.
-    console.log(searchInput)
+    if(!searchInput) {
+        recipecontainer.innerHTML = `<h2>Type the meal in the search box,</h2>`;
+        return;
+    }
+    //console.log(searchInput)
     fetchRecipes(searchInput);
   //  console.log("Button clicked");
 
