@@ -138,6 +138,7 @@ input[type="text"] {
  }
 
  .recipeInstructions p{
+    margin-top: 5px;
     line-height: 30px;
     white-space: pre-line;
  }
